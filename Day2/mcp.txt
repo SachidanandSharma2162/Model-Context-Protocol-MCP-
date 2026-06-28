@@ -1,0 +1,28 @@
+With the help of tools the problem of context got
+resolved and whenever you need any data so with the 
+help of tool you can fetch by just using those tools 
+which are connected to the ecternal application
+so you don't need to copy paste the entire code or
+context over the LLM like chatgpt to get context 
+aware answer.
+
+This solved the problem of context assembly at some 
+instance.
+
+Without MCP, adding a new data source (e.g., Notion) to 5 different AI
+apps means writing 5 separate integrations. With MCP, you write ONE MCP
+server and all 5 apps connect automatically.
+
+MCP is NOT a replacement for the LLM itself; it 
+extends what the LLM can DO and SEE.
+
+In MCP all the heavy lifting is done by MCP Server,
+at the client side you dont need to write much glue
+code to access the server, just need to connect 
+server and client.
+
+Just need to write the JSON file and server and client
+connect when you need the integration.
+
+Every service provider is making MCP Server, so new
+chatbot can connect to MCP server so better Ecosystem.
