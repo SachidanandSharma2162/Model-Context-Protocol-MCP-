@@ -1,0 +1,68 @@
+This diagram illustrates the architecture of the Model Context Protocol (MCP) and how an AI application communicates with different MCP servers.
+
+Summary
+User interacts with the Host
+The user sends a request to the Host (e.g., ChatGPT Desktop, Claude Desktop, VS Code extension).
+The Host contains one or more MCP Clients.
+
+Host communicates with the AI Model
+The Host sends the user's prompt to the LLM (shown at the top).
+The LLM determines whether it needs to access external tools or data.
+
+MCP Clients connect to MCP Servers
+Each Client is responsible for communicating with a specific MCP Server.
+A Host can have multiple clients connected to multiple servers simultaneously.
+
+Communication uses JSON-RPC 2.0
+The message format is JSON-RPC 2.0.
+Different transport mechanisms can be used:
+STDIO for local servers.
+HTTP + SSE (Server-Sent Events) for remote servers.
+
+Two MCP Servers are shown
+Filesystem Server (Local)
+Runs on the user's machine.
+Provides:
+Tools
+Resources
+Prompts
+Connected via STDIO.
+GitHub Server (Remote)
+Runs on a remote machine.
+Also provides:
+Tools
+Resources
+Prompts
+Connected via HTTP + SSE.
+
+
+Overall Flow
+User
+   │
+   ▼
+Host (AI Application)
+   │
+   ├── MCP Client ── JSON-RPC 2.0 over STDIO ──► Local Filesystem Server
+   │
+   └── MCP Client ── JSON-RPC 2.0 over HTTP+SSE ─► Remote GitHub Server
+
+
+Key Takeaways
+Host: The AI application the user interacts with.
+Client: A communication component inside the host that talks to MCP servers.
+Server: Exposes capabilities such as Tools, Resources, and Prompts.
+JSON-RPC 2.0: Defines the format of requests and responses.
+STDIO / HTTP + SSE: Define how those messages are transported.
+A single Host can connect to multiple MCP servers at the same time, each using the transport mechanism that best fits its deployment (local or remote).
+
+Interview Explanation (1 minute)
+
+"This diagram shows the MCP architecture. The user interacts with
+an AI Host, which contains one or more MCP Clients. The Host 
+sends the user's request to the LLM, and when external data or 
+actions are needed, the appropriate MCP Client communicates with an 
+MCP Server. Communication uses JSON-RPC 2.0 as the message format. 
+Local servers, like a Filesystem Server, typically use the STDIO 
+transport, while remote servers, like a GitHub Server, communicate over 
+HTTP with Server-Sent Events (SSE). Each MCP Server exposes three 
+primitives—Tools, Resources, and Prompts—to extend the AI's capabilities."
