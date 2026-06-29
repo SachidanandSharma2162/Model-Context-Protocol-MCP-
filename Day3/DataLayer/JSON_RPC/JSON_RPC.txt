@@ -1,0 +1,140 @@
+What is JSON-RPC 2.0?
+
+JSON-RPC 2.0 is a lightweight, language-independent Remote Procedure Call (RPC) protocol that uses JSON to encode requests and responses.
+It allows one program (client) to call a function or method on another program (server) as if it were a local function.
+
+MCP uses JSON-RPC 2.0 as the message format for communication between the MCP Client and MCP Server.
+
+Simple Analogy
+Imagine you have two computers:
+
+Computer A (Client): "Please calculate 10 + 20."
+Computer B (Server): Calculates the result and replies with 30.
+
+Instead of calling a local function, the client sends a JSON message over a network or another transport.
+
+Request Structure
+
+A JSON-RPC request has four main fields:
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "add",
+  "params": {
+    "a": 10,
+    "b": 20
+  }
+}
+Explanation
+Field	Meaning
+jsonrpc	Protocol version ("2.0")
+id	Unique request identifier
+method	Name of the function to call
+params	Parameters passed to the function
+
+Response Structure
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": 30
+}
+
+Explanation
+Field	Meaning
+jsonrpc	Protocol version
+id	Same ID as the request
+result	Function output
+
+The id lets the client match the response to the correct request.
+
+
+
+Error Response:
+If something goes wrong, the server returns an error object instead of result.
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "error": {
+    "code": -32601,
+    "message": "Method not found"
+  }
+}
+
+Common Error Codes
+ Code	    Meaning
+-32700	Parse error
+-32600	Invalid request
+-32601	Method not found
+-32602	Invalid parameters
+-32603	Internal error
+
+
+Notification
+A notification is a request without an id.
+
+{
+  "jsonrpc": "2.0",
+  "method": "log",
+  "params": {
+    "message": "Hello"
+  }
+}
+
+Because there is no id, the server does not send a response.
+
+Use notifications when no reply is needed (e.g., logging or status updates).
+
+Complete Flow:
+
+Client                              Server
+  │                                   │
+  │ Request                           │
+  │ method = "add"                    │
+  ├──────────────────────────────────►│
+  │                                   │
+  │                           Execute add()
+  │                                   │
+  │◄──────────────────────────────────┤
+  │ Response: result = 30             │
+
+
+JSON-RPC 2.0 in MCP
+
+Suppose an AI assistant wants to use a weather tool exposed by an MCP server.
+
+Client Request
+{
+  "jsonrpc": "2.0",
+  "id": 101,
+  "method": "tools/call",
+  "params": {
+    "name": "get_weather",
+    "arguments": {
+      "city": "Delhi"
+    }
+  }
+}
+Server Response
+{
+  "jsonrpc": "2.0",
+  "id": 101,
+  "result": {
+    "temperature": "35°C",
+    "condition": "Sunny"
+  }
+}
+
+Here:
+
+method = "tools/call" tells the server to invoke a tool.
+params specifies the tool name and its arguments.
+result contains the tool's output.
+
+Why JSON-RPC?
+Simple: Uses JSON, which is easy for humans and machines to read.
+Language-independent: Works with Python, Java, C++, JavaScript, Go, and more.
+Lightweight: Smaller and simpler than protocols like SOAP.
+Structured: Standardized request, response, and error formats.
+Transport Agnostic: Can be used with any mode of transport either STDIO or Streamable HTTP, the format is always JSON_RPC

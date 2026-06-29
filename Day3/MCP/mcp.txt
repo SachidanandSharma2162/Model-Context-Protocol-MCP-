@@ -1,0 +1,51 @@
+Host do not directly talks to the server, instead 
+it communicate via a client(MCP) 
+
+Client helps the server to communicate wit the server
+
+User->Host(AI APP)->MCP Client(MCP Compatible request)->MCP Server->Database/Github/Api/Drive
+
+The communication bet the client and server is 1:1 i.e.
+client and connect to only one server at a time.
+
+There is a need to different client for different servers
+
+------------------------------------------------------------------------------------------------------------
+MCP Host
+The host is the application the user interacts with.
+
+Examples:
+An AI coding IDE
+
+MCP Client
+The client is a component inside the host whose only job is to communicate with MCP servers.
+
+Its responsibilities include:
+Connecting to MCP servers
+Sending requests
+Receiving responses
+Converting data between the host and the server
+
+
+Analogy
+Imagine ordering food:
+
+User = who come to the restaurant.
+Host = the restaurant.
+Client = the waiter.
+Server = the kitchen.
+
+You (user) talk to the restaurant (host), not directly to the waiter (client). The waiter communicates with the kitchen (server) and brings the food back.
+
+
+Benefit:
+1. Decoupling
+2. Safe
+3. Parallelism
+4. Scalibility
+
+
+
+MCP Layers:
+
+1. 

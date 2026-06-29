@@ -1,0 +1,49 @@
+In the MCP Transport Layer, the server refers to the
+communication endpoint that receives JSON-RPC
+messages from an MCP client and sends responses 
+back. Its responsibility is transporting messages, 
+not implementing business logic.
+
+Transport Layer
+
+The Transport Layer is responsible for carrying the Data Layer messages between the MCP client and MCP server.
+
+It defines:
+
+How connections are established
+How messages are sent and received
+How streaming works
+How communication stays synchronized
+
+You can think of it as the communication channel.
+
+Common transport mechanisms include:
+
+stdio (Standard Input/Output) – Used when the MCP server runs as a local process. The client launches the server and exchanges JSON-RPC messages over the process's standard input and output streams.
+Streamable HTTP – Used when the MCP server runs remotely and communicates over HTTP while supporting streaming where appropriate.
+
+
+
+Different Transport Types:
+
+1. stdio Transport
+MCP Client
+      │
+ stdin/stdout
+      │
+Transport Server
+      │
+MCP Server Logic
+Used when the MCP server is running as a local process.
+Communication happens through the process's standard input and output.
+
+2. HTTP Transport
+MCP Client
+      │
+   HTTP Request
+      │
+HTTP Transport Server
+      │
+MCP Server Logic
+Used when the MCP server is running remotely.
+Communication happens over HTTP.

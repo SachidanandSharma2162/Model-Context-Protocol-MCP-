@@ -1,0 +1,40 @@
+Data Layer
+The Data Layer specifies the structure and format of messages exchanged between the MCP client and MCP server.
+
+It defines:
+
+Requests
+Responses
+Notifications
+Tools
+Resources
+Prompts
+Errors
+
+The data is typically represented using JSON-RPC 2.0 messages.
+
+Example: Tool Request(JSON-RPC-2.0 )
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "get_weather",
+    "arguments": {
+      "city": "Delhi"
+    }
+  }
+}
+Example: Tool Response
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "temperature": "34°C",
+    "condition": "Sunny"
+  }
+}
+
+The Data Layer only specifies what the messages look like. It does not specify how those messages are sent.
+
