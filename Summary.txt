@@ -66,3 +66,7 @@ Local servers, like a Filesystem Server, typically use the STDIO
 transport, while remote servers, like a GitHub Server, communicate over 
 HTTP with Server-Sent Events (SSE). Each MCP Server exposes three 
 primitives—Tools, Resources, and Prompts—to extend the AI's capabilities."
+
+
+
+To get the list of all MCP servers go to : awesome mcp servers on Github
