@@ -1,0 +1,9 @@
+if the protocol versions of client and server are different
+then the client checks its config file for all set of 
+accepted protocolVersion and the servers protocolVersion
+is not present then, the client disconnects the connection.
+
+If that particular protocolVersion is present then client
+send back the notification to the server about connection
+Initialized.
+

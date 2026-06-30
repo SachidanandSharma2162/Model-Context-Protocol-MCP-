@@ -1,0 +1,19 @@
+Error Response:
+If something goes wrong, the server returns an error object instead of result.
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "error": {
+    "code": -32601,
+    "message": "Method not found"
+  }
+}
+
+Common Error Codes
+ Code	    Meaning
+-32700	Parse error
+-32600	Invalid request
+-32601	Method not found
+-32602	Invalid parameters
+-32603	Internal error

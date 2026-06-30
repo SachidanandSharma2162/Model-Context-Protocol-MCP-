@@ -1,0 +1,13 @@
+Notification
+A notification is a request without an id.
+
+{
+  "jsonrpc": "2.0",
+  "method": "notifications/progress",
+  "params": {
+    "progressToken" : "tok-7",
+    "message" :"Searching 600 of 1000 files"
+  }
+}
+
+

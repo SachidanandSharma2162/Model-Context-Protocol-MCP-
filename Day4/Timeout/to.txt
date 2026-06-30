@@ -1,0 +1,29 @@
+A timeout in the Model Context Protocol (MCP) is the 
+maximum amount of time an MCP client waits for a 
+response from an MCP server. If the server does not 
+respond within this time, the client assumes the 
+request has failed and stops waiting.
+
+Timeouts prevent the AI application from hanging 
+indefinitely when a server is slow, unreachable, or 
+stuck.
+
+
+Why are Timeouts Needed?
+
+Imagine an AI assistant asks an MCP server to read a file.
+
+Client ───────► Filesystem Server
+        Read "README.md"
+
+Normally, the server responds quickly.
+
+But what if:
+
+The server crashes?
+The network is down?
+GitHub API is taking too long?
+The tool enters an infinite loop?
+
+Without a timeout, the client could wait forever.
+

@@ -1,0 +1,21 @@
+At the time of Initialization of connection the client 
+discovers allthe tool or resources and prompts 
+that are offered by the server by sending a batch 
+request
+[
+    {
+        tool/list
+    },
+    {
+        resources/list
+    },
+    {
+        prompts/list
+    }
+]
+
+Int he response the server sends complete detail of the 
+tool that it provide to the client.
+
+After client knows what all tool it can use, client uses Tool
+Calling to invoke any tool of its use.

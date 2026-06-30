@@ -1,0 +1,204 @@
+The MCP Lifecycle describes the sequence of events from when an MCP client connects to an MCP server until the connection is closed. Understanding this lifecycle is important for interviews because it explains how an AI application discovers and uses external capabilities.
+
+MCP Lifecycle
+1. Connection Established
+          │
+          ▼
+2. Initialization Handshake
+          │
+          ▼
+3. Capability Negotiation
+          │
+          ▼
+4. Normal Communication
+          │
+          ▼
+5. Notifications & Updates
+          │
+          ▼
+6. Connection Closed
+
+
+Step 1: Connection Established
+
+The MCP Client first establishes a connection with the MCP Server.
+The transport depends on where the server is running:
+
+Local Server → stdio
+Remote Server → HTTP
+
+Example:
+
+MCP Client ─────────► MCP Server
+       Connection Established
+
+
+Step 2: Initialization Handshake
+
+After connecting, the client sends an initialize request.
+
+Purpose:
+
+Tell the server who the client is.
+Specify the supported MCP protocol version.
+Exchange basic information.
+
+Example:
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "clientInfo": {
+      "name": "ChatGPT Desktop",
+      "version": "1.0"
+    }
+  }
+}
+
+The server replies with its information.
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "Filesystem Server",
+      "version": "1.2"
+    }
+  }
+}
+
+
+Step 3: Capability Negotiation
+
+Now both sides advertise their capabilities.
+
+The server tells the client things like:
+
+Available tools
+Available resources
+Available prompts
+
+Example:
+
+Filesystem Server
+
+Tools:
+✓ read_file
+✓ write_file
+
+Resources:
+✓ README.md
+✓ notes.txt
+
+Prompts:
+✓ Summarize file
+✓ Explain code
+
+The client now knows what the server can do.
+
+
+Step 4: Normal Communication
+
+This is where the AI actually uses the server.
+
+Examples:
+
+Call tools
+Read resources
+Use prompts
+
+Example:
+
+User:
+Read config.json
+↓
+LLM
+↓
+Client
+↓
+Server
+↓
+Returns file contents
+
+Or
+
+User:
+Create GitHub Issue
+↓
+Tool Call
+↓
+GitHub Server
+↓
+Issue Created
+
+
+Step 5: Notifications & Updates
+
+Servers can send notifications when something changes.
+
+Examples:
+
+New file added
+File modified
+Database updated
+GitHub issue created
+
+Example:
+
+Filesystem Server
+↓
+Notification
+↓
+Client
+↓
+Host updates AI context
+
+Notifications do not require a response.
+
+
+Step 6: Connection Closed
+
+When finished:
+
+Client disconnects.
+Resources are cleaned up.
+Transport closes.
+
+Client
+↓
+Disconnect
+↓
+Server
+
+
+Complete Lifecycle
+User
+   │
+   ▼
+Host
+   │
+   ▼
+MCP Client
+   │
+   │ 1. Connect
+   ▼
+MCP Server
+   ▲
+   │ 2. Initialize
+   │
+   ▲
+   │ 3. Exchange Capabilities
+   │
+   ▲
+   │ 4. Tool Calls / Resources / Prompts
+   │
+   ▲
+   │ 5. Notifications
+   │
+   ▲
+   │ 6. Disconnect
