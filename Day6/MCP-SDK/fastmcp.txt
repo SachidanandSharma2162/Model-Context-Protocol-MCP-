@@ -1,0 +1,66 @@
+FastMCP was originally created by Jeremiah Lowin, 
+the founder and CEO of Prefect, to make it much 
+easier to build Model Context Protocol (MCP) servers 
+and clients in Python.
+
+A brief history
+Late 2024: Jeremiah Lowin created FastMCP 1.0 as a 
+more Pythonic, developer-friendly framework for MCP.
+2024: FastMCP 1.0 was incorporated into the official 
+MCP Python SDK in collaboration with Anthropic, 
+making its simplified programming model available to 
+many developers.
+
+Today: FastMCP continues as an independently 
+maintained, production-focused framework developed 
+by Prefect. It provides features beyond the core MCP 
+SDK, including authentication, deployment tools, 
+testing, server composition, proxying, and OpenAPI 
+integration.
+
+
+Why FastMCP?
+Without FastMCP, creating an MCP server using the 
+low-level SDK involves more boilerplate:
+
+# Low-level SDK
+register_tools()
+define_resources()
+configure_transport()
+handle_lifecycle()
+manage_errors()
+
+With FastMCP:
+
+from fastmcp import FastMCP
+mcp = FastMCP("Calculator")
+
+@mcp.tool
+def add(a: int, b: int):
+    return a + b
+
+mcp.run()
+
+
+FastMCP automatically handles:
+
+Tool registration
+JSON schema generation
+JSON-RPC communication
+Transport management (stdio or HTTP)
+MCP lifecycle
+Error handling
+
+
+we can do:
+pip install mcp
+pip install mcp[cli]
+or
+pip install fastmcp
+
+pip install "mcp[cli]" installs the official MCP 
+Python SDK, not the standalone FastMCP package. 
+However, the official MCP SDK now includes the 
+FastMCP API, which is why you can import it as:
+
+from mcp.server.fastmcp import FastMCP
