@@ -1,0 +1,40 @@
+Although their names are similar, FastAPI and FastMCP solve completely different problems.
+
+Feature	                                 FastAPI	                                          FastMCP
+Purpose	                     Build REST APIs and web applications	            Build MCP servers for AI assistants
+Protocol	                    HTTP/HTTPS (REST, WebSockets)	                   MCP (Model Context Protocol)
+Users	                     Frontend apps, mobile apps, other services	        LLMs like ChatGPT, Claude, Cursor, VS Code AI
+Main Use Case	                       Backend development	                  Giving AI access to tools, databases, files, APIs
+Learning Curve	                           Moderate	                                    Easy if you know Python
+Built On	                           ASGI (Starlette)	                           MCP SDK (or FastMCP abstractions)
+
+----------------------------------------------------
+
+from fastmcp import FastMCP
+from main import app
+
+mcp = FastMCP.from_fastapi(
+    app=app,
+    name="Expense Tracker Server",
+)
+
+if __name__ == "__main__":
+    mcp.run()
+
+----------------------------------------------------
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/expenses")
+def get_expenses():
+    ...
+
+@app.post("/expenses")
+def create_expense():
+    ...
+
+@app.delete("/expenses/{id}")
+def delete_expense(id: int):
+    ...
